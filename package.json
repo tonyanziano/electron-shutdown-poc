@@ -4,11 +4,12 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "yarn clean && cross-env NODE_ENV=production yarn build:renderer && yarn build:main",
-    "build:dev": "yarn clean && yarn build:main && cross-env NODE_ENV=development yarn build:renderer",
+    "build": "yarn clean && cross-env NODE_ENV=production yarn build:renderer && yarn build:main && yarn copy:preload",
+    "build:dev": "yarn clean && yarn build:main && cross-env NODE_ENV=development yarn build:renderer && yarn copy:preload",
     "build:renderer": "webpack",
     "build:main": "tsc -P tsconfig.main.json",
     "clean": "rimraf dist",
+    "copy:preload": "ncp src/main/preload.js dist/preload.js",
     "start": "electron dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,6 +25,7 @@
     "cross-env": "^7.0.3",
     "electron": "^12.0.7",
     "html-webpack-plugin": "^5.3.1",
+    "ncp": "^2.0.0",
     "rimraf": "^3.0.2",
     "ts-loader": "^9.1.2",
     "webpack": "^5.37.0",
