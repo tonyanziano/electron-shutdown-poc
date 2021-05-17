@@ -41,5 +41,11 @@ app.once("before-quit", (ev) => {
   ev.preventDefault();
 
   // enter "close" handler to perform cleanup
-  mainWindow.close();
+  try {
+    mainWindow.close();
+  } catch (e) {
+    // in the case that the "close" event was fired first,
+    // the main browser window will already be destroyed
+    // so we want to swallow the error
+  }
 });
